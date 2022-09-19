@@ -21,7 +21,7 @@ impl Default for HostCallbacks {
 }
 
 fn default_opa_abort(msg: &str) {
-    println!("OPA abort with message: {:?}", msg);
+    eprintln!("OPA abort with message: {:?}", msg);
 }
 
 fn default_opa_println(msg: &str) {
