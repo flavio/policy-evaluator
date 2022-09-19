@@ -28,6 +28,16 @@ impl Evaluator {
 
     pub fn new(policy_contents: &[u8], host_callbacks: HostCallbacks) -> Result<Evaluator> {
         let engine = Engine::default();
+        let module = Module::new(&engine, policy_contents)?;
+
+        Self::from_engine_and_module(engine, module, host_callbacks)
+    }
+
+    pub fn from_engine_and_module(
+        engine: Engine,
+        module: Module,
+        host_callbacks: HostCallbacks,
+    ) -> Result<Evaluator> {
         let mut linker = Linker::<Option<StackHelper>>::new(&engine);
 
         let opa_data_helper: Option<StackHelper> = None;
@@ -39,7 +49,6 @@ impl Evaluator {
 
         opa_host_functions::add_to_linker(&mut linker)?;
 
-        let module = Module::new(&engine, policy_contents)?;
         let instance = linker.instantiate(&mut store, &module)?;
 
         let stack_helper = StackHelper::new(
@@ -52,9 +61,6 @@ impl Evaluator {
         let policy = Policy::new(&instance, &mut store, &memory)?;
         _ = store.data_mut().insert(stack_helper);
 
-        //let builtins = policy.builtins_lookup(&mut store, &memory)?;
-
-        //TODO rewrite?
         let used_builtins: String = policy
             .builtins(&mut store, &memory)?
             .keys()
