@@ -109,18 +109,6 @@ impl Policy {
         Ok(builtins)
     }
 
-    pub fn builtins_lookup(
-        &self,
-        mut store: impl AsContextMut,
-        memory: &Memory,
-    ) -> Result<HashMap<i32, String>> {
-        Ok(self
-            .builtins(store.as_context_mut(), memory)?
-            .iter()
-            .map(|(k, v)| (*v, k.clone()))
-            .collect())
-    }
-
     pub fn entrypoints(
         &self,
         mut store: impl AsContextMut,
