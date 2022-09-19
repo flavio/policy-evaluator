@@ -1,6 +1,7 @@
 use anyhow::Result;
 use std::collections::HashMap;
 
+pub(crate) mod builtins_helper;
 mod debugging;
 mod encoding;
 mod glob;
@@ -10,10 +11,12 @@ mod semver;
 mod strings;
 mod time;
 
-pub type BuiltinFunctionsMap =
+pub(crate) use builtins_helper::BUILTINS_HELPER;
+
+pub(crate) type BuiltinFunctionsMap =
     HashMap<&'static str, fn(&[serde_json::Value]) -> Result<serde_json::Value>>;
 
-pub fn get_builtins() -> BuiltinFunctionsMap {
+pub(crate) fn get_builtins() -> BuiltinFunctionsMap {
     let mut functions: BuiltinFunctionsMap = HashMap::new();
 
     // debugging
