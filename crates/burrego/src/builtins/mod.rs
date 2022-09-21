@@ -16,7 +16,7 @@ pub(crate) use builtins_helper::BUILTINS_HELPER;
 pub(crate) type BuiltinFunctionsMap =
     HashMap<&'static str, fn(&[serde_json::Value]) -> Result<serde_json::Value>>;
 
-pub(crate) fn get_builtins() -> BuiltinFunctionsMap {
+pub fn get_builtins() -> BuiltinFunctionsMap {
     let mut functions: BuiltinFunctionsMap = HashMap::new();
 
     // debugging

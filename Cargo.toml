@@ -34,8 +34,13 @@ tracing-futures = "0.2"
 url = { version = "2.2.2", features = ["serde"] }
 validator = { version = "0.16", features = ["derive"] }
 wasmparser = "0.90.0"
-wapc = "1.0.0"
-wasmtime-provider = { version = "1.1.0", features = ["cache"] }
+#wapc = { path = "../../../wasm/wapc/wapc-rs/crates/wapc" }
+#wasmtime-provider = { path = "../../../wasm/wapc/wapc-rs/crates/wasmtime-provider", features = ["cache"] }
+#wapc = "1.0.0"
+#wasmtime-provider = { version = "1.1.0", features = ["cache"] }
+wapc = { git = "https://github.com/flavio/wapc-rs", branch = "wasmtime_provider-big-refactoring" }
+wasmtime-provider = { git = "https://github.com/flavio/wapc-rs", branch = "wasmtime_provider-big-refactoring", features = ["cache"] }
+
 
 [dev-dependencies]
 assert-json-diff = "2.0.2"
